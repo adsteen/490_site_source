@@ -11,6 +11,7 @@ draft: false
 
 Resources for week 2.
 <!--more-->
+[R for Reproducible Scientific Analysis](https://swcarpentry.github.io/r-novice-gapminder/)
 
 ```{r setup, echo = FALSE}
 knitr::opts_chunk$set(eval=FALSE)
