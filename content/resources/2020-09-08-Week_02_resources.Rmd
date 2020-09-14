@@ -27,4 +27,4 @@ To do that:
 * Add a link to a resource. To make a nice hyperlink, type the text that goes into the link followed by the URL like this: `[Google](https://www.google.com)`
 * Press the green "commit changes" button at the bottom of the screen
 * Press the "pull requests" tab near the top of the screen, and then press the green "new pull request" button. Add a message in the box, and type "create pull request". This will send a request to me to incorporate your changes into the git repo.
-
+[R Function of the Day](http://rfunction.com/)
