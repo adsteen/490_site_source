@@ -1,0 +1,112 @@
+---
+title: 'dplyr part 2: Performing calculations on data frames'
+author: ~
+date: '2020-09-16'
+slug: dplyr-calculating
+categories: [dplyr]
+tags: [week05]
+draft: false
+---
+
+
+
+<p>Calculating values from data frames: <code>summarise()</code> and <code>mutate()</code>.</p>
+<div id="calculations-using-data-frames" class="section level1">
+<h1>Calculations using data frames</h1>
+<p>Broadly speaking, there are two kinds of calculations we’d want to perform on data frames, and two functions for doing these:</p>
+<ul>
+<li>Calculations that return a single answer: <code>summarise()</code></li>
+<li>Calculations that return one answer for every row in the data frame: <code>mutate()</code></li>
+</ul>
+<p><strong>Before you write code, think: do I want a single answer for my data frame, or do I want a separate answer for each row of the data frame?</strong></p>
+<p>Let’s say we want to calculate the mean of the flight distances. That will be just one number, so we want to use summarise<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<pre class="r"><code>library(tidyverse)
+library(nycflights13)
+summary_dist &lt;- summarise(flights, mean.distance = mean(distance))
+summary_dist</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   mean.distance
+##           &lt;dbl&gt;
+## 1         1040.</code></pre>
+<p>We can read this R sentence as "summarize the <code>flights</code> data frame, creating a column called <code>mean.distance</code>, which will contain the results of the <code>mean(distance)</code></p>
+</div>
+<div id="single-answer-calculations-summarise" class="section level1">
+<h1>Single-answer calculations: <code>summarise()</code></h1>
+<p>Let’s say we want to convert the distance column from miles to kilometers. That will yield a different number for each row of the data frame, so it will be a mutate</p>
+<p>One last note: <code>NA</code>s also cause problems with many common statistical functions like <code>mean()</code> and <code>sum()</code>: by default, if there are any <code>NA</code>s in a vector, functions like these return <code>NA</code>. For instance:</p>
+<pre class="r"><code>my.vec &lt;- c(1, 2, 3, NA)
+mean(my.vec)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>This is generally not what we want! To avoid this behavior, use the parameter <code>na.rm</code>:</p>
+<pre class="r"><code>mean(my.vec, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<div id="calculating-multiple-summary-statistics" class="section level2">
+<h2>Calculating multiple summary statistics</h2>
+<p>Often we want to calculate multiple summary statistics at once: for instance, we if we’re calculating the mean of some numbers, we also want to calculate the standard deviation. We do this by passing multiple summary functions to <code>summarise()</code>:</p>
+<pre class="r"><code>mean_dist_and_sd &lt;- summarise(flights, 
+                              mean.dist = mean(distance, na.rm = TRUE),
+                              sd.dist = sd(distance, na.rm = TRUE))
+mean_dist_and_sd</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   mean.dist sd.dist
+##       &lt;dbl&gt;   &lt;dbl&gt;
+## 1     1040.    733.</code></pre>
+<p>Note the formatting: because this line is getting to be pretty long, we should break it up into multiple lines and indent all lines after the first one. RStudio will do this for us automatically. R doesn’t care about the indentation<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> but this makes it much easier for humans to read.</p>
+</div>
+</div>
+<div id="one-answer-per-row-calculations-mutate" class="section level1">
+<h1>One-answer-per-row calculations: <code>mutate()</code></h1>
+<p>Let’s now imagine that we want to know these distances in kilometers instead of miles. Simple enough: we want to multiply each distance by 1.61. Since that will provide one answer for each row of the data frame, we want <code>mutate()</code>.</p>
+<p>It might not seem like a big deal, but R makes this really easy due to <a href="https://bookdown.org/rdpeng/rprogdatascience/vectorized-operations.html">vectorization</a>. In some languages, we have to write a surprising amount of code to perform the same calculation on a bunch of different numbers!</p>
+<pre class="r"><code>flights_km &lt;- mutate(flights, dist.km = distance * 1.61)
+glimpse(flights_km)</code></pre>
+<pre><code>## Rows: 336,776
+## Columns: 20
+## $ year           &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, …
+## $ month          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ day            &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ dep_time       &lt;int&gt; 517, 533, 542, 544, 554, 554, 555, 557, 557, 558, 558,…
+## $ sched_dep_time &lt;int&gt; 515, 529, 540, 545, 600, 558, 600, 600, 600, 600, 600,…
+## $ dep_delay      &lt;dbl&gt; 2, 4, 2, -1, -6, -4, -5, -3, -3, -2, -2, -2, -2, -2, -…
+## $ arr_time       &lt;int&gt; 830, 850, 923, 1004, 812, 740, 913, 709, 838, 753, 849…
+## $ sched_arr_time &lt;int&gt; 819, 830, 850, 1022, 837, 728, 854, 723, 846, 745, 851…
+## $ arr_delay      &lt;dbl&gt; 11, 20, 33, -18, -25, 12, 19, -14, -8, 8, -2, -3, 7, -…
+## $ carrier        &lt;chr&gt; &quot;UA&quot;, &quot;UA&quot;, &quot;AA&quot;, &quot;B6&quot;, &quot;DL&quot;, &quot;UA&quot;, &quot;B6&quot;, &quot;EV&quot;, &quot;B6&quot;, …
+## $ flight         &lt;int&gt; 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301, …
+## $ tailnum        &lt;chr&gt; &quot;N14228&quot;, &quot;N24211&quot;, &quot;N619AA&quot;, &quot;N804JB&quot;, &quot;N668DN&quot;, &quot;N39…
+## $ origin         &lt;chr&gt; &quot;EWR&quot;, &quot;LGA&quot;, &quot;JFK&quot;, &quot;JFK&quot;, &quot;LGA&quot;, &quot;EWR&quot;, &quot;EWR&quot;, &quot;LGA&quot;…
+## $ dest           &lt;chr&gt; &quot;IAH&quot;, &quot;IAH&quot;, &quot;MIA&quot;, &quot;BQN&quot;, &quot;ATL&quot;, &quot;ORD&quot;, &quot;FLL&quot;, &quot;IAD&quot;…
+## $ air_time       &lt;dbl&gt; 227, 227, 160, 183, 116, 150, 158, 53, 140, 138, 149, …
+## $ distance       &lt;dbl&gt; 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 733,…
+## $ hour           &lt;dbl&gt; 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6, …
+## $ minute         &lt;dbl&gt; 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, …
+## $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-01 …
+## $ dist.km        &lt;dbl&gt; 2254.00, 2279.76, 1753.29, 2537.36, 1226.82, 1157.59, …</code></pre>
+<p>We get back the same data frame, with a new column added: <code>dist.km</code>. Just like with <code>summarise()</code>, we can add add multiple new columns with one <code>mutate()</code> call:</p>
+<pre class="r"><code>flights_obsolete_units &lt;- mutate(flights, 
+                                 dist.furlongs = distance * 8,
+                                 dist.leagues = distance * 0.29,
+                                 dist.rods = distance * 320)
+select(flights_obsolete_units, distance, dist.furlongs, dist.leagues, dist.rods)</code></pre>
+<pre><code>## # A tibble: 336,776 x 4
+##    distance dist.furlongs dist.leagues dist.rods
+##       &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;
+##  1     1400         11200        406      448000
+##  2     1416         11328        411.     453120
+##  3     1089          8712        316.     348480
+##  4     1576         12608        457.     504320
+##  5      762          6096        221.     243840
+##  6      719          5752        209.     230080
+##  7     1065          8520        309.     340800
+##  8      229          1832         66.4     73280
+##  9      944          7552        274.     302080
+## 10      733          5864        213.     234560
+## # … with 336,766 more rows</code></pre>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Hadley Wickham is from New Zealand, so the tidyverse functions are generally in both British (<code>summarise</code>) and American (<code>summarize</code>) spellings. But I learned from reading Hadley’s early guides, where he used the British spelling, and the habit stuck.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Unlike python, which cares very much about indentations!<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
