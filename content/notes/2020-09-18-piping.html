@@ -1,0 +1,55 @@
+---
+title: 'dplyr part 4: combining operations with pipes'
+author: ~
+date: '2020-09-18'
+slug: dplyr-grouping
+categories: [dplyr]
+tags: [week05]
+draft: no
+---
+
+
+
+<p>Learning how to combine operations with the <code>%&gt;%</code> operator.</p>
+<!--more-->
+<p>By the end of dplyr lesson 3, you know how to split data frames into invisible groups using <code>group_by()</code> and perform arbitrary operations on each group using <code>summarise()</code> and <code>mutate()</code>.</p>
+<pre class="r"><code>library(tidyverse)
+library(nycflights13)
+
+# Get rid of rows that are missing tailnum or air_time
+cleaned_flights &lt;- filter(flights, !(is.na(tailnum) | is.na(air_time)))
+
+# Calculate average flight time for each unique airplane (tailnum)
+cleaned_grouped_flights &lt;- group_by(cleaned_flights, tailnum, carrier)
+mean_time_by_airplane &lt;- summarise(cleaned_grouped_flights,
+                                 mean.time = mean(air_time),
+                                 sd.time = sd(air_time))
+
+p_flighttimes &lt;- ggplot(mean_time_by_airplane, aes(x=carrier, y=mean.time)) + 
+  geom_boxplot() + 
+  ylab(&quot;average flight time, minutes&quot;)
+print(p_flighttimes)</code></pre>
+<p><img src="/data_analysis_2020/notes/2020-09-18-piping_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>This is really powerful! However, the code is kind of hard to read. We have to keep coming up with variable names that accurately describe what the data frame is, which can be a challenge.</p>
+<p>It would be nice for our code to match the way we would describe the operation:</p>
+<ol style="list-style-type: decimal">
+<li>First we want to remove every row from the <code>flights</code> data set that is missing <code>tailnum</code> or <code>air_time</code></li>
+<li>Then we want to group the resulting data frame by each combination of <code>tailnum</code> and <code>carrier</code></li>
+<li>Then, for each unique combination of those things, we want to calculate the mean and standard deviation of <code>air_time</code>.</li>
+</ol>
+<p>The pipe operator, <code>%&gt;%</code>, allows us to do this. <code>%&gt;%</code> says "take the thing on the left, and feed as the first argument to the function on the right. So the following two statements are identical:</p>
+<pre class="r"><code>df_old_fashioned_way &lt;- summarise(flights, mean.dist = mean(distance, na.rm = TRUE))
+df_piped &lt;- flights %&gt;%
+  summarise(mean.dist = mean(distance, na.rm = TRUE))
+all_equal(df_old_fashioned_way, df_piped)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>The <code>all_equal()</code> function confirms that these data frames are the same! We would read the second R sentence as “Take the <code>flights</code> data frame, and feed it to the <code>summarise()</code> function, which will create a column called <code>mean.dist</code> which is the <code>mean()</code> function called on the <code>distance</code> column.”</p>
+<p>This is particularly powerful when we want to connect a bunch of operations into one statement:</p>
+<pre class="r"><code>flight_time_summary &lt;- flights %&gt;% # Start with flights
+  filter(!(is.na(tailnum) | is.na(air_time))) %&gt;% # Filter rows I don&#39;t want
+  group_by(tailnum, carrier) %&gt;% # Group the resulting data frame appropriately
+  summarise(mean.time = mean(air_time), # Calculate summary statistics
+            sd.time = sd(air_time))</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;tailnum&#39; (override with `.groups` argument)</code></pre>
+<p>Note that, for clarity, I start a new, indented line after each <code>%&gt;%</code>.</p>
+<p>Just remember when you’re reading piped statements, the function on the “recieving end” of the <code>%&gt;%</code> (i.e., the function to the right) <em>invisibly</em> is passed the object on the left of the pipe as its first argument. So <code>group_by(tailnum, carrier)</code> by itself doesn’t make any sense since <code>tailnum</code> is not an acceptable first argument to <code>group_by()</code>. But <code>flights %&gt;% group_by(tailnum, carrier)</code> is fine, because it is equivalent to <code>group_by(flights, tailnum, carrier)</code>.</p>
