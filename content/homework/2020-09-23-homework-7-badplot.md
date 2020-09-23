@@ -1,14 +1,14 @@
 ---
-title: Homework 7: Badplot!
+title: "Homework 7: Badplot"
 author: ~
-date: '2020-09-23'
-slug: homework-6
-categories: []
-tags: [Homework]
+date: '2020-09-24'
+slug: homework-7
+categories: [homework]
+tags: [week07]
 draft: no
 ---
 
-Homework 7 is due Wednesday, October 30.
+Homework 7 is due Wednesday, October 7.
 
 <!--more-->
 

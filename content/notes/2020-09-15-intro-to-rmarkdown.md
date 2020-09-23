@@ -3,7 +3,7 @@ title: Intro to RMarkdown
 author: ~
 date: '2020-09-15'
 slug: intro-to-rmarkdown
-categories: [rmarkdown]
+categories: [notes]
 tags: [week05]
 draft: false
 ---
