@@ -1,7 +1,7 @@
 ---
 title: "Homework 7: Badplot"
 author: ~
-date: '2020-09-24'
+date: '2020-09-23'
 slug: homework-7
 categories: [homework]
 tags: [week07]
