@@ -9,6 +9,8 @@ draft: false
 # toc: true
 ---
 
+[Google](https://google.com)
+
 Resources for week 2.
 <!--more-->
 
