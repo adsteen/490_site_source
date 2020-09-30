@@ -28,4 +28,6 @@ To do that:
 * Press the green "commit changes" button at the bottom of the screen
 * Press the "pull requests" tab near the top of the screen, and then press the green "new pull request" button. Add a message in the box, and type "create pull request". This will send a request to me to incorporate your changes into the git repo.
 
-[Class Style Guide](https://adsteen.github.io/data_analysis_2020/resources/style-guide/)
+* [Class Style Guide](https://adsteen.github.io/data_analysis_2020/resources/style-guide/)
+* [GitHub for Beginners](https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6)
+
