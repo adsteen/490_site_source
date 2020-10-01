@@ -33,7 +33,7 @@ The second plot should be based on the same or similar data to the first plot, b
 
 This the winning plot from last year, by Rihanna Moore. Truly reprehensible, although I'm sure that with enough creativity and will to succeed, you can make one worse.
 
-![Rihanna Moore's winning badplot](data_analysis_2020/homework/2020-09-23-homework-7-badplot_files/rihanna_plot.jpeg)
+![Rihanna Moore's winning badplot](/data_analysis_2020/homework/2020-09-23-homework-7-badplot_files/rihanna_plot.jpeg)
 
 This plot - while truly reprehensible - falls afoul of the rule that the data must be visible. Here, the margins are adjusted so wide that the data are compressed into a nearly-invisible green stripe. (This plot is the work of [Chris Cook](https://adsteen.github.io/authors/ccook62/), and complied with the contest rules at the time). 
 
