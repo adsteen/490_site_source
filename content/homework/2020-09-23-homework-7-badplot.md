@@ -37,8 +37,8 @@ This the winning plot from last year, by Rihanna Moore. Truly reprehensible, alt
 
 This plot - while truly reprehensible - falls afoul of the rule that the data must be visible. Here, the margins are adjusted so wide that the data are compressed into a nearly-invisible green stripe. (This plot is the work of [Chris Cook](https://adsteen.github.io/authors/ccook62/), and complied with the contest rules at the time). 
 
-![A bad but illegal badplot](/homework/2020-09-23-homework-7-badplot_files/bad_bad_plot.png)
+![A bad but illegal badplot](/data_analysis_2020/homework/2020-09-23-homework-7-badplot_files/bad_bad_plot.png)
 
 This plot is a nice example of one in which the data are visible but uninterpretable. This plot would be allowable under this year's rules.
 
-![A legal badplot](/homework/2020-09-23-homework-7-badplot_files/visible_data.jpeg)
+![A legal badplot](/data_analysis_2020/homework/2020-09-23-homework-7-badplot_files/visible_data.jpeg)
