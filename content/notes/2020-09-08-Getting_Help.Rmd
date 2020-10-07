@@ -4,7 +4,7 @@ author: ~
 date: '2020-09-08'
 slug: "help"
 categories: [notes]
-tags: [basics]
+tags: [basics, week03]
 draft: false
 # toc: true
 ---
@@ -12,6 +12,10 @@ draft: false
 ```{r setup, echo = FALSE}
 knitr::opts_chunk$set(eval=FALSE)
 ```
+
+Introduces how to read documentation for R functions and packages, and how to get help from the internet.
+
+<!--more-->
 
 # Help on specific functions
 

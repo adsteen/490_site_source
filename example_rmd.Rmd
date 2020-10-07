@@ -1,0 +1,18 @@
+---
+title: "Github markdown example"
+author: "Drew Steen"
+date: "9/15/2020"
+output: github_document
+---
+
+Problem: **knitr** creates a new R session to evaluate code.
+
+```{r}
+a <- 2
+print(a)
+```
+
+```{r}
+getwd()
+```
+
