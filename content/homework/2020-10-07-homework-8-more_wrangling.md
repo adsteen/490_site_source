@@ -4,7 +4,7 @@ author: ~
 date: '2020-10-07'
 slug: homework-8
 categories: [homework]
-tags: [week08]
+tags: [week08, "base R"]
 draft: no
 ---
 
