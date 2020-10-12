@@ -1,0 +1,77 @@
+---
+title: 'Subsetting vectors'
+author: ~
+date: '2020-10-07'
+slug: subsetting-vectors
+categories: [base R]
+tags: [week08]
+draft: no
+---
+
+
+
+<p>Sometimes it is really helpful to use base R syntax to access parts of vectors and data frames.</p>
+<!--more-->
+<p>Our approach in this course centers on the tidyverse. Using this approach, we can access specific rows of a data frame using <code>filter()</code>, and columns of a data frame using <code>select()</code>.</p>
+<p>Base R gives us three different tools to access specific elements of vectors, parts of data frames, and elements of lists. Here we’ll focus on vectors and data frames. We call accessing specific elements of an object <em>subsetting</em>.</p>
+<div id="for-vector-elements" class="section level1">
+<h1><code>[</code> for vector elements</h1>
+<p>We can use the <code>[</code> operator to access elements of vectors by their index. Let’s look at a vector of US state names, which are provided as rownames of a built-in data set called <code>USArrests</code>:</p>
+<pre class="r"><code>states &lt;- rownames(USArrests)
+head(states)</code></pre>
+<pre><code>## [1] &quot;Alabama&quot;    &quot;Alaska&quot;     &quot;Arizona&quot;    &quot;Arkansas&quot;   &quot;California&quot;
+## [6] &quot;Colorado&quot;</code></pre>
+<div id="two-ways-of-using" class="section level2">
+<h2>Two ways of using <code>[</code></h2>
+<p>There are two basic ways to use <code>[</code> to subset a vector:</p>
+<ul>
+<li>Access elements by index</li>
+<li>Access elements using a logical vector</li>
+</ul>
+<div id="accessing-elements-by-index" class="section level3">
+<h3>Accessing elements by index</h3>
+<p>Every element in a vector has an <em>index</em> - this is just the number at which the element appears in the vector. The index of the first element is 1, the second element is 2, etc. For instance, we can see the 42nd element in the <code>states</code> vector using:</p>
+<pre class="r"><code>states[42]</code></pre>
+<pre><code>## [1] &quot;Tennessee&quot;</code></pre>
+<p>The <code>:</code> operator creates a sequence of integers, so we can get, for instance, the first 5 elements of a vector like so:</p>
+<pre class="r"><code>states[1:5]</code></pre>
+<pre><code>## [1] &quot;Alabama&quot;    &quot;Alaska&quot;     &quot;Arizona&quot;    &quot;Arkansas&quot;   &quot;California&quot;</code></pre>
+<p>The <code>seq()</code> function creates more complicated sequences. Here is every 7th element of <code>states</code>:</p>
+<pre class="r"><code>states[seq(from = 1, to = 50, by = 7)]</code></pre>
+<pre><code>## [1] &quot;Alabama&quot;       &quot;Delaware&quot;      &quot;Iowa&quot;          &quot;Michigan&quot;     
+## [5] &quot;New Hampshire&quot; &quot;Oklahoma&quot;      &quot;Texas&quot;         &quot;Wyoming&quot;</code></pre>
+</div>
+<div id="subsetting-with-a-logical-vector" class="section level3">
+<h3>Subsetting with a logical vector</h3>
+<p>More often, however, we want to create some test, to return elements of a vector that meet a condition. For instance, which elements of <code>states</code> are equal to <code>Alabama</code>?</p>
+<pre class="r"><code>states == &quot;Alabama&quot;</code></pre>
+<pre><code>##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [49] FALSE FALSE</code></pre>
+<p>We’ve seen the <code>==</code> synax when we were learning to use <code>filter()</code> - remember that it returns a logical vector, with values of either <code>TRUE</code> or <code>FALSE</code>.</p>
+<p>As an aside, because <code>TRUE</code> and <code>FALSE</code> are stored as <code>1</code> and <code>0</code>, we can calculate how many times <code>Alabama</code> appears in <code>states</code> - hopefully only once, but you can never be too sure!</p>
+<pre class="r"><code>sum(states == &quot;Alabama&quot;)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Thank heavens.</p>
+<p>If we subset using a vector of logicals like that, R will return only those elements that correspond to <code>TRUE</code>. For instance</p>
+<pre class="r"><code>states[states == &quot;Alabama&quot;]</code></pre>
+<pre><code>## [1] &quot;Alabama&quot;</code></pre>
+<p><strong>Please</strong> think carefully about what is happening here:</p>
+<ol style="list-style-type: decimal">
+<li><code>states == "Alabama"</code> creates a 50-element logical vector, with <code>TRUE</code> for every element of <code>states</code> that equals <code>"Alabama"</code>, and <code>FALSE</code> otherwise.</li>
+<li>We susbet <code>states</code> using that logical vector. Since only the first element is <code>TRUE</code>, R returns only the first element.</li>
+</ol>
+<p><strong>A warning:</strong> in the example above, we subsetted the 50-element vector <code>states</code> with a 50-element logical vector. However, remember about vector recycling: R will recycle the logical vector as necessary to reach the length of the vector you’re subsetting. For instance, to get every other state name, we could use:</p>
+<pre class="r"><code>states[c(TRUE, FALSE)]</code></pre>
+<pre><code>##  [1] &quot;Alabama&quot;        &quot;Arizona&quot;        &quot;California&quot;     &quot;Connecticut&quot;   
+##  [5] &quot;Florida&quot;        &quot;Hawaii&quot;         &quot;Illinois&quot;       &quot;Iowa&quot;          
+##  [9] &quot;Kentucky&quot;       &quot;Maine&quot;          &quot;Massachusetts&quot;  &quot;Minnesota&quot;     
+## [13] &quot;Missouri&quot;       &quot;Nebraska&quot;       &quot;New Hampshire&quot;  &quot;New Mexico&quot;    
+## [17] &quot;North Carolina&quot; &quot;Ohio&quot;           &quot;Oregon&quot;         &quot;Rhode Island&quot;  
+## [21] &quot;South Dakota&quot;   &quot;Texas&quot;          &quot;Vermont&quot;        &quot;Washington&quot;    
+## [25] &quot;Wisconsin&quot;</code></pre>
+</div>
+</div>
+</div>
