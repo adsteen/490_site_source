@@ -1,5 +1,5 @@
 ---
-title: "Homework 9 options"
+title: "Homework 9"
 author: ~
 date: '2020-10-14'
 slug: homework-9
@@ -12,9 +12,9 @@ Homework 9 is due Wednesday, October 21.
 
 <!--more-->
 
-# Option 1: final project prospectus
+# Final project prospectus
 
-See the description of the final project prospectus assignment in the Final Project folder. 
+Write a paragraph or two about what you might do for a final project. Name group members and poitn to the data source(s) you will use. Mention any challenges you expect to encounter.
 
 # Option 2: Functions and programming
 
