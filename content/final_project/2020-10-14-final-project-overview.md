@@ -40,11 +40,11 @@ A major consideration of my acceptance of the prospectus is that it be an approp
 7. Call a language other than R
 8. Use a shell script
 9. Metaprogramming / using nonstandard evaluation
-* Collaborate on project using github
-* Write and deploy a real blog post (or manuscript) describing the scientific importance of your analysis
-* ...?
+10. Collaborate on project using github
+11. 11. Write and deploy a real blog post (or manuscript) describing the scientific importance of your analysis
+12. ...?
 
 
 # Approximate schedule
 
-To be determined based on discussion in class!ß
+To be determined based on discussion in class!

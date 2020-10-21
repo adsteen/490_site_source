@@ -33,7 +33,6 @@ As usual, please write this homework as a .Rmd file. Knit it to a .md file (`out
 1. Create a numeric vector like so: `num.vec <- c(3, 4, 1, 5)`
 2. Use `as.factor()` to convert that numeric vector to a factor.
 3. Use `as.numeric()` to convert that factor to a numeric vector. Take a look at that vector. Explain what happened.
-4. 
 
 # Exploratory data analysis
 
