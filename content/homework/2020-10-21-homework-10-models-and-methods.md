@@ -8,7 +8,7 @@ tags: [week10]
 draft: no
 ---
 
-Homework 9 is due Wednesday, October 28.
+Homework 10 is due Wednesday, October 28.
 
 <!--more-->
 
