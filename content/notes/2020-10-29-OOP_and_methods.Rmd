@@ -1,0 +1,17 @@
+---
+title: 'Object-oriented programming and methods'
+author: ~
+date: '2020-10-29'
+slug: OOP-and-methods
+categories: [dplyr]
+tags: [week08]
+draft: no
+---
+
+Learning about object-oriented programming with R's S3 system.
+
+<!--more-->
+
+Writing functions allows you to transform data in new and interesting ways. In many cases, you might want to create a new kind of data structure to hold those transformed structures.
+
+Object classes allow you to do that. You have already run into classes: data frames, atmoic vectors, and `lm` ob
