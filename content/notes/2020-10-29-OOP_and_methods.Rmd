@@ -146,4 +146,4 @@ summary.rebig_raw <- function(rebig_obj) {
 my_rebig_obj <- new_rebig_raw(mtcars, analyst = "Drew")
 summary(my_rebig_obj)
 ```
-There are many more intricacies to creating *good-quality* classes and associated methods, many of which can be found i 
+There are many more intricacies to creating *good-quality* classes and associated methods, many of which can be found in advanced R, but this primer will get you started with the basics.
