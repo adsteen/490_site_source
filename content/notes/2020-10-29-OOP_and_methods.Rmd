@@ -8,10 +8,27 @@ tags: [week08]
 draft: no
 ---
 
-Learning about object-oriented programming with R's S3 system.
+Learning about object-oriented programming with R's S3 object-oriented programming system.
 
 <!--more-->
 
+# Understanding OOP
+
 Writing functions allows you to transform data in new and interesting ways. In many cases, you might want to create a new kind of data structure to hold those transformed structures.
 
-Object classes allow you to do that. You have already run into classes: data frames, atmoic vectors, and `lm` ob
+Object classes allow you to do that. You have already run into classes: data frames, atomic vectors, and `lm` objects. We can find out what class an object is with the `class()` function:
+
+```{r}
+class(mtcars)
+```
+Pretty straightfoward: `mtcars` is a data frame.
+
+## R's insane OOP system
+
+R has at least three different obj
+
+## Class inheritance: the biological model
+
+I like to think of OOP as mimicking the structure of biology. Classes can be nested, like biological taxa. The mammals are within the animals, the *carnivora* are within the mammals, the canids (dogs and wolves) are within the *carnivora*.
+
+Similarly, classes 
